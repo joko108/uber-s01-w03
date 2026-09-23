@@ -1,0 +1,13 @@
+# Зависимости
+node_modules/
+
+# Сборка
+dist/
+
+# Настройки IDE
+.idea/
+
+# Логи и системный мусор
+*.log
+.DS_Store
+Thumbs.db
