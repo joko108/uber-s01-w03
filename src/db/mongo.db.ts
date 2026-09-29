@@ -13,7 +13,7 @@ export async function runDB(url: string): Promise<void> {
   initCollections(db);
 
   try {
-    await client.connect();
+    await client.connect(); // Подключаемся к БД
     await db.command({ ping: 1 });
     console.log('✅ Connected to the database');
   } catch (e) {

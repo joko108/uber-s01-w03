@@ -10,7 +10,7 @@ export function mapToDriverViewModel(driver: WithId<Driver>): DriverViewModel {
     name: driver.name,
     phoneNumber: driver.phoneNumber,
     email: driver.email,
-    vehicle: driver.vehicle,
+    vehicle: driver.vehicle, // Объект vehicle, не нужно указывать каждое поле
     createdAt: driver.createdAt,
   };
 }

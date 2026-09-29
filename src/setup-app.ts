@@ -6,6 +6,7 @@ import { RIDES_PATH } from './rides/constants/rides.paths';
 import { TESTING_PATH } from './testing/constants/testing.paths';
 import { driversRouter } from './drivers/routers/drivers.router';
 
+// Настройка маршрутов
 export const setupApp = (app: Express) => {
   app.use(express.json());
 
