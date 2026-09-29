@@ -6,13 +6,13 @@ import { generateBasicAuthToken } from '../generate-admin-auth-token';
 import { DriverViewModel } from '../../../src/drivers/types/driver-view-model';
 
 export async function getDriverById(
-  app: Express,
-  driverId: string,
+    app: Express,
+    driverId: string,
 ): Promise<DriverViewModel> {
-  const driverResponse = await request(app)
-    .get(`${DRIVERS_PATH}/${driverId}`)
-    .set('Authorization', generateBasicAuthToken())
-    .expect(HttpStatus.Ok);
+    const driverResponse = await request(app)
+        .get(`${DRIVERS_PATH}/${driverId}`)
+        .set('Authorization', generateBasicAuthToken())
+        .expect(HttpStatus.Ok);
 
-  return driverResponse.body;
+    return driverResponse.body;
 }

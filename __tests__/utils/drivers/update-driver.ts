@@ -7,19 +7,19 @@ import { DRIVERS_PATH } from '../../../src/drivers/constants/drivers.paths';
 import { generateBasicAuthToken } from '../generate-admin-auth-token';
 
 export async function updateDriver(
-  app: Express,
-  driverId: string,
-  driverDto?: DriverInputDto,
+    app: Express,
+    driverId: string,
+    driverDto?: DriverInputDto,
 ): Promise<void> {
-  const defaultDriverData: DriverInputDto = getDriverDto();
+    const defaultDriverData: DriverInputDto = getDriverDto();
 
-  const testDriverData = { ...defaultDriverData, ...driverDto };
+    const testDriverData = { ...defaultDriverData, ...driverDto };
 
-  const updatedDriverResponse = await request(app)
-    .put(`${DRIVERS_PATH}/${driverId}`)
-    .set('Authorization', generateBasicAuthToken())
-    .send(testDriverData)
-    .expect(HttpStatus.NoContent);
+    const updatedDriverResponse = await request(app)
+        .put(`${DRIVERS_PATH}/${driverId}`)
+        .set('Authorization', generateBasicAuthToken())
+        .send(testDriverData)
+        .expect(HttpStatus.NoContent);
 
-  return updatedDriverResponse.body;
+    return updatedDriverResponse.body;
 }

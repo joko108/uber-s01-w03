@@ -18,33 +18,33 @@ driversRouter.use(superAdminGuardMiddleware);
 // Каждая цепочка: валидация -> проверка её результата -> handler.
 // Пути маршрутов берём из констант модуля, а не из строковых литералов.
 driversRouter
-  .get(DRIVERS_ROUTES.ROOT, getDriverListHandler)
+    .get(DRIVERS_ROUTES.ROOT, getDriverListHandler)
 
-  .get(
-    DRIVERS_ROUTES.BY_ID,
-    idValidation,
-    inputValidationResultMiddleware,
-    getDriverHandler,
-  )
+    .get(
+        DRIVERS_ROUTES.BY_ID,
+        idValidation,
+        inputValidationResultMiddleware,
+        getDriverHandler,
+    )
 
-  .post(
-    DRIVERS_ROUTES.ROOT,
-    driverInputDtoValidation,
-    inputValidationResultMiddleware,
-    createDriverHandler,
-  )
+    .post(
+        DRIVERS_ROUTES.ROOT,
+        driverInputDtoValidation,
+        inputValidationResultMiddleware,
+        createDriverHandler,
+    )
 
-  .put(
-    DRIVERS_ROUTES.BY_ID,
-    idValidation,
-    driverInputDtoValidation,
-    inputValidationResultMiddleware,
-    updateDriverHandler,
-  )
+    .put(
+        DRIVERS_ROUTES.BY_ID,
+        idValidation,
+        driverInputDtoValidation,
+        inputValidationResultMiddleware,
+        updateDriverHandler,
+    )
 
-  .delete(
-    DRIVERS_ROUTES.BY_ID,
-    idValidation,
-    inputValidationResultMiddleware,
-    deleteDriverHandler,
-  );
+    .delete(
+        DRIVERS_ROUTES.BY_ID,
+        idValidation,
+        inputValidationResultMiddleware,
+        deleteDriverHandler,
+    );

@@ -8,10 +8,10 @@ import { driversRouter } from './drivers/routers/drivers.router';
 
 // Настройка маршрутов
 export const setupApp = (app: Express) => {
-  app.use(express.json());
+    app.use(express.json());
 
-  // Каждый модуль подключается по своему базовому пути.
-  app.use(DRIVERS_PATH, driversRouter);
-  app.use(RIDES_PATH, ridesRouter);
-  app.use(TESTING_PATH, testingRouter);
+    // Каждый модуль подключается по своему базовому пути.
+    app.use(DRIVERS_PATH, driversRouter);
+    app.use(RIDES_PATH, ridesRouter);
+    app.use(TESTING_PATH, testingRouter);
 };

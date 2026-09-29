@@ -7,16 +7,16 @@ import { generateBasicAuthToken } from '../generate-admin-auth-token';
 import { RideViewModel } from '../../../src/rides/types/ride-view-model';
 
 export async function getRideById<R = RideViewModel>(
-  app: Express,
-  rideId: string,
-  expectedStatus?: HttpStatus,
+    app: Express,
+    rideId: string,
+    expectedStatus?: HttpStatus,
 ): Promise<R> {
-  const testStatus = expectedStatus ?? HttpStatus.Ok;
+    const testStatus = expectedStatus ?? HttpStatus.Ok;
 
-  const getResponse = await request(app)
-    .get(`${RIDES_PATH}/${rideId}`)
-    .set('Authorization', generateBasicAuthToken())
-    .expect(testStatus);
+    const getResponse = await request(app)
+        .get(`${RIDES_PATH}/${rideId}`)
+        .set('Authorization', generateBasicAuthToken())
+        .expect(testStatus);
 
-  return getResponse.body;
+    return getResponse.body;
 }

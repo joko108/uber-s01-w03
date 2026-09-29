@@ -12,12 +12,12 @@ export let rideCollection: Collection<Ride>;
 
 // Создаём объекты коллекций из подключённой базы.
 export function initCollections(db: Db): void {
-  driverCollection = db.collection<Driver>(DRIVER_COLLECTION_NAME);
-  rideCollection = db.collection<Ride>(RIDE_COLLECTION_NAME);
+    driverCollection = db.collection<Driver>(DRIVER_COLLECTION_NAME);
+    rideCollection = db.collection<Ride>(RIDE_COLLECTION_NAME);
 }
 
 // Список всех коллекций считаем в МОМЕНТ вызова (уже после initCollections),
 // а не на этапе загрузки модуля — иначе сюда попали бы ещё не инициализированные (undefined) коллекции.
 export function getAllCollections(): Collection<any>[] {
-  return [driverCollection, rideCollection];
+    return [driverCollection, rideCollection];
 }

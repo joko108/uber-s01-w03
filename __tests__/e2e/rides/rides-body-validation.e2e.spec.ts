@@ -10,77 +10,77 @@ import { runDB, stopDb } from '../../../src/db/mongo.db';
 import { SETTINGS } from '../../../src/settings/config';
 
 describe('Rides API body validation check', () => {
-  const app = express();
-  setupApp(app);
+    const app = express();
+    setupApp(app);
 
-  const adminToken = generateBasicAuthToken();
+    const adminToken = generateBasicAuthToken();
 
-  beforeAll(async () => {
-    await runDB(SETTINGS.MONGO_URL);
-    await clearDb(app);
-  });
+    beforeAll(async () => {
+        await runDB(SETTINGS.MONGO_URL);
+        await clearDb(app);
+    });
 
-  // Закрываем соединение с БД, чтобы процесс тестов корректно завершался.
-  afterAll(async () => {
-    await stopDb();
-  });
+    // Закрываем соединение с БД, чтобы процесс тестов корректно завершался.
+    afterAll(async () => {
+        await stopDb();
+    });
 
-  it(`❌ should not create ride when incorrect body passed; POST /api/rides'`, async () => {
-    await request(app)
-      .post('/api/rides')
-      .send({})
-      .expect(HttpStatus.Unauthorized);
+    it(`❌ should not create ride when incorrect body passed; POST /api/rides'`, async () => {
+        await request(app)
+            .post('/api/rides')
+            .send({})
+            .expect(HttpStatus.Unauthorized);
 
-    const invalidDataSet1 = await request(app)
-      .post(RIDES_PATH)
-      .set('Authorization', generateBasicAuthToken())
-      .send({
-        clientName: '   ', // empty string
-        price: 'bla bla', // not a number
-        currency: 1, // not a string
-        fromAddress: '', // empty string
-        toAddress: true, // not a string
-        driverId: 'bam', //not a number
-      })
-      .expect(HttpStatus.BadRequest);
+        const invalidDataSet1 = await request(app)
+            .post(RIDES_PATH)
+            .set('Authorization', generateBasicAuthToken())
+            .send({
+                clientName: '   ', // empty string
+                price: 'bla bla', // not a number
+                currency: 1, // not a string
+                fromAddress: '', // empty string
+                toAddress: true, // not a string
+                driverId: 'bam', //not a number
+            })
+            .expect(HttpStatus.BadRequest);
 
-    expect(invalidDataSet1.body.errorMessages).toHaveLength(6);
+        expect(invalidDataSet1.body.errorMessages).toHaveLength(6);
 
-    const invalidDataSet2 = await request(app)
-      .post(RIDES_PATH)
-      .set('Authorization', generateBasicAuthToken())
-      .send({
-        clientName: 'LA', // short string
-        price: 0, // can not be 0
-        currency: 'byn', // not in Currency
-        fromAddress: 'street', // short string
-        driverId: 0, //can not be 0
-        toAddress: 'test address',
-      })
-      .expect(HttpStatus.BadRequest);
+        const invalidDataSet2 = await request(app)
+            .post(RIDES_PATH)
+            .set('Authorization', generateBasicAuthToken())
+            .send({
+                clientName: 'LA', // short string
+                price: 0, // can not be 0
+                currency: 'byn', // not in Currency
+                fromAddress: 'street', // short string
+                driverId: 0, //can not be 0
+                toAddress: 'test address',
+            })
+            .expect(HttpStatus.BadRequest);
 
-    expect(invalidDataSet2.body.errorMessages).toHaveLength(5);
+        expect(invalidDataSet2.body.errorMessages).toHaveLength(5);
 
-    const invalidDataSet3 = await request(app)
-      .post(RIDES_PATH)
-      .set('Authorization', generateBasicAuthToken())
-      .send({
-        driverId: 5000, //driver should exist
-        clientName: 'Sam',
-        price: 100,
-        currency: Currency.USD,
-        fromAddress: 'test address',
-        toAddress: 'test address',
-      })
-      .expect(HttpStatus.BadRequest);
+        const invalidDataSet3 = await request(app)
+            .post(RIDES_PATH)
+            .set('Authorization', generateBasicAuthToken())
+            .send({
+                driverId: 5000, //driver should exist
+                clientName: 'Sam',
+                price: 100,
+                currency: Currency.USD,
+                fromAddress: 'test address',
+                toAddress: 'test address',
+            })
+            .expect(HttpStatus.BadRequest);
 
-    expect(invalidDataSet3.body.errorMessages).toHaveLength(1);
+        expect(invalidDataSet3.body.errorMessages).toHaveLength(1);
 
-    // check что никто не создался
-    const riderListResponse = await request(app)
-      .get(RIDES_PATH)
-      .set('Authorization', adminToken);
+        // check что никто не создался
+        const riderListResponse = await request(app)
+            .get(RIDES_PATH)
+            .set('Authorization', adminToken);
 
-    expect(riderListResponse.body).toHaveLength(0);
-  });
+        expect(riderListResponse.body).toHaveLength(0);
+    });
 });

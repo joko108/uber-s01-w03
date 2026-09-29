@@ -10,20 +10,20 @@ import { getRideDto } from './get-ride-dto';
 import { RideViewModel } from '../../../src/rides/types/ride-view-model';
 
 export async function createRide(
-  app: Express,
-  rideDto?: RideInputDto,
+    app: Express,
+    rideDto?: RideInputDto,
 ): Promise<RideViewModel> {
-  const driver = await createDriver(app);
+    const driver = await createDriver(app);
 
-  const defaultRideData = getRideDto(driver.id);
+    const defaultRideData = getRideDto(driver.id);
 
-  const testRideData = { ...defaultRideData, ...rideDto };
+    const testRideData = { ...defaultRideData, ...rideDto };
 
-  const createdRideResponse = await request(app)
-    .post(RIDES_PATH)
-    .set('Authorization', generateBasicAuthToken())
-    .send(testRideData)
-    .expect(HttpStatus.Created);
+    const createdRideResponse = await request(app)
+        .post(RIDES_PATH)
+        .set('Authorization', generateBasicAuthToken())
+        .send(testRideData)
+        .expect(HttpStatus.Created);
 
-  return createdRideResponse.body;
+    return createdRideResponse.body;
 }

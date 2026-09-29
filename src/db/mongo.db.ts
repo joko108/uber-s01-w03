@@ -6,26 +6,26 @@ export let client: MongoClient;
 
 // Подключение к БД
 export async function runDB(url: string): Promise<void> {
-  client = new MongoClient(url);
-  const db: Db = client.db(SETTINGS.DB_NAME);
+    client = new MongoClient(url);
+    const db: Db = client.db(SETTINGS.DB_NAME);
 
-  // Инициализируем коллекции из подключённой базы.
-  initCollections(db);
+    // Инициализируем коллекции из подключённой базы.
+    initCollections(db);
 
-  try {
-    await client.connect(); // Подключаемся к БД
-    await db.command({ ping: 1 });
-    console.log('✅ Connected to the database');
-  } catch (e) {
-    await client.close();
-    throw new Error(`❌ Database not connected: ${e}`);
-  }
+    try {
+        await client.connect(); // Подключаемся к БД
+        await db.command({ ping: 1 });
+        console.log('✅ Connected to the database');
+    } catch (e) {
+        await client.close();
+        throw new Error(`❌ Database not connected: ${e}`);
+    }
 }
 
 // для тестов
 export async function stopDb() {
-  if (!client) {
-    throw new Error(`❌ No active client`);
-  }
-  await client.close();
+    if (!client) {
+        throw new Error(`❌ No active client`);
+    }
+    await client.close();
 }

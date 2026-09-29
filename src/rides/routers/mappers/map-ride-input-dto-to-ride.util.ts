@@ -8,25 +8,25 @@ import { Driver } from '../../../drivers/types/driver';
 // их добавит handler, чтобы маппер отвечал только за перенос данных из DTO/водителя.
 // Благодаря этому в репозиторий уходит готовый доменный объект, а не «сырой» DTO.
 export function mapRideInputDtoToRide(
-  dto: RideInputDto,
-  driver: WithId<Driver>,
+    dto: RideInputDto,
+    driver: WithId<Driver>,
 ): Omit<Ride, 'createdAt' | 'updatedAt' | 'startedAt' | 'finishedAt'> {
-  return {
-    clientName: dto.clientName,
-    driver: {
-      id: driver._id.toString(),
-      name: driver.name,
-    },
-    // Данные машины копируем из водителя, а не из запроса.
-    vehicle: {
-      licensePlate: driver.vehicle.licensePlate,
-      name: `${driver.vehicle.make} ${driver.vehicle.model}`,
-    },
-    price: dto.price,
-    currency: dto.currency,
-    addresses: {
-      from: dto.fromAddress,
-      to: dto.toAddress,
-    },
-  };
+    return {
+        clientName: dto.clientName,
+        driver: {
+            id: driver._id.toString(),
+            name: driver.name,
+        },
+        // Данные машины копируем из водителя, а не из запроса.
+        vehicle: {
+            licensePlate: driver.vehicle.licensePlate,
+            name: `${driver.vehicle.make} ${driver.vehicle.model}`,
+        },
+        price: dto.price,
+        currency: dto.currency,
+        addresses: {
+            from: dto.fromAddress,
+            to: dto.toAddress,
+        },
+    };
 }

@@ -4,12 +4,12 @@ import { mapToDriverViewModel } from '../mappers/map-to-driver-view-model.util';
 import { HttpStatus } from '../../../core/types/http-statuses';
 
 export async function getDriverListHandler(req: Request, res: Response) {
-  try {
-    const drivers = await driversRepository.findAll();
-    // Наружу отдаём view-model, а не «сырой» документ из БД.
-    const driverViewModels = drivers.map(mapToDriverViewModel);
-    res.send(driverViewModels);
-  } catch {
-    res.sendStatus(HttpStatus.InternalServerError);
-  }
+    try {
+        const drivers = await driversRepository.findAll();
+        // Наружу отдаём view-model, а не «сырой» документ из БД.
+        const driverViewModels = drivers.map(mapToDriverViewModel);
+        res.send(driverViewModels);
+    } catch {
+        res.sendStatus(HttpStatus.InternalServerError);
+    }
 }

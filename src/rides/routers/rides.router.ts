@@ -17,25 +17,25 @@ ridesRouter.use(superAdminGuardMiddleware);
 // Каждая цепочка: валидация -> проверка её результата -> handler.
 // Пути маршрутов берём из констант модуля, а не из строковых литералов.
 ridesRouter
-  .get(RIDES_ROUTES.ROOT, getRideListHandler)
+    .get(RIDES_ROUTES.ROOT, getRideListHandler)
 
-  .get(
-    RIDES_ROUTES.BY_ID,
-    idValidation,
-    inputValidationResultMiddleware,
-    getRideHandler,
-  )
+    .get(
+        RIDES_ROUTES.BY_ID,
+        idValidation,
+        inputValidationResultMiddleware,
+        getRideHandler,
+    )
 
-  .post(
-    RIDES_ROUTES.ROOT,
-    rideInputDtoValidation,
-    inputValidationResultMiddleware,
-    createRideHandler,
-  )
+    .post(
+        RIDES_ROUTES.ROOT,
+        rideInputDtoValidation,
+        inputValidationResultMiddleware,
+        createRideHandler,
+    )
 
-  .post(
-    RIDES_ROUTES.FINISH,
-    idValidation,
-    inputValidationResultMiddleware,
-    finishRideHandler,
-  );
+    .post(
+        RIDES_ROUTES.FINISH,
+        idValidation,
+        inputValidationResultMiddleware,
+        finishRideHandler,
+    );
