@@ -12,7 +12,7 @@ const bootstrap = async () => {
 
     const PORT = SETTINGS.PORT;
 
-    // Подключаемся к ДБ до запуска сервера
+    // Подключаемся к БД до запуска сервера
     await runDB(SETTINGS.MONGO_URL);
 
     // Запускаем сервер

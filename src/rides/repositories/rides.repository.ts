@@ -24,7 +24,6 @@ export const ridesRepository = {
 
     async create(newRide: Ride): Promise<WithId<Ride>> {
         const insertResult = await rideCollection.insertOne(newRide);
-
         return { ...newRide, _id: insertResult.insertedId };
     },
 
